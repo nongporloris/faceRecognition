@@ -61,7 +61,7 @@ const ParticlesComponent = () => {
     }, []);
 
     return (
-        <Particles
+        <Particles 
             id="tsparticles"
             init={particlesInit}
             loaded={particlesLoaded}
@@ -85,7 +85,7 @@ const ParticlesComponent = () => {
                             quantity: 4,
                         },
                         repulse: {
-                            distance: 200,
+                            distance: 100,
                             duration: 0.4,
                         },
                     },
