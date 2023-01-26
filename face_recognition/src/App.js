@@ -7,6 +7,7 @@ import Rank from './components/Rank/Rank';
 import Particles from './components/Particles';
 import Clarifai from 'clarifai';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
+import Signin from './components/Signin/Signin';
 
 
 /*
@@ -39,6 +40,7 @@ class App extends React.Component{
       input:'',
       imageURL: '',
       box: {},
+      route: 'signin'
 
     }
 
@@ -47,6 +49,7 @@ class App extends React.Component{
     
 calculateFaceLocation =(data) =>{
 
+   //const clarifaiFace = data.regions[0].data.concepts.regions[0].region_info.bounding_box;
    //const clarifaiFace = data.presets.data.outputs[0].data.regions[0].data.concepts.regions[0].region_info.bounding_box;
    const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
    const image = document.getElementById('inputimage');
@@ -175,6 +178,14 @@ app.models
 */
 
 
+} //this.onButtonSubmit
+
+
+onRouteChange =(route) =>{
+
+  this.setState({route: route});
+
+
 }
 
 
@@ -185,17 +196,29 @@ app.models
 
       <div className="App">
 
-  
-        <Navigation/>
+      <Navigation onRouteChange={this.onRouteChange}/>
 
-        <Logo/>
+      {
 
-        <Rank/>
-
-        <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit= {this.onButtonSubmit}/>
-
-        <FaceRecognition box={this.state.box} imageURL = {this.state.imageURL}/>
+        this.state.route === 'signin' 
         
+          ? <Signin onRouteChange={this.onRouteChange}/>
+
+          : <div>
+
+              <Logo/>
+
+              <Rank/>
+
+              <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit= {this.onButtonSubmit}/>
+
+              <FaceRecognition box={this.state.box} imageURL = {this.state.imageURL}/>
+            </div>
+
+
+        }
+       
+      }
 
         <Particles className='parti' style={{zIndex:'-1'}}/>
 

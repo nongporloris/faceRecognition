@@ -1,11 +1,15 @@
 import React from 'react';
 
-const Navigation = () =>{
+const Navigation = ({ onRouteChange }) =>{
 
 	return (
 
 		<nav style={{display: 'flex', justifyContent : 'flex-end', paddingRight:'20px'}}>
-			<p className ='f3 link black underline pa3 link light-blue pointer shadow-1 br-pill link b black pv2 db bg-animate hover-bg-dark-gray'>Sign out</p>
+			<p
+			onClick={() => onRouteChange('signin')}
+			className ='f3 link black underline pa3 link white pointer shadow-1 br-pill link b black pv2 db bg-animate hover-bg-dark-gray'>
+				Sign out
+			</p>
 		</nav>
 
 
