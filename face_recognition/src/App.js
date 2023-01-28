@@ -8,6 +8,7 @@ import Particles from './components/Particles';
 import Clarifai from 'clarifai';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import Signin from './components/Signin/Signin';
+import Register from './components/Register/Register';
 
 
 /*
@@ -196,15 +197,13 @@ onRouteChange =(route) =>{
 
       <div className="App">
 
-      <Navigation onRouteChange={this.onRouteChange}/>
-
       {
 
-        this.state.route === 'signin' 
+        this.state.route === 'home' 
         
-          ? <Signin onRouteChange={this.onRouteChange}/>
+          ? <div>
 
-          : <div>
+              <Navigation onRouteChange={this.onRouteChange}/>
 
               <Logo/>
 
@@ -216,9 +215,16 @@ onRouteChange =(route) =>{
             </div>
 
 
-        }
-       
+          //<Signin onRouteChange={this.onRouteChange}/>
+
+          : (this.state.route === 'signin'
+
+              ?<Signin onRouteChange={this.onRouteChange}/>
+              :<Register onRouteChange={this.onRouteChange}/>
+            )
       }
+       
+      
 
         <Particles className='parti' style={{zIndex:'-1'}}/>
 
