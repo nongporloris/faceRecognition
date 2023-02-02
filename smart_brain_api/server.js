@@ -1,9 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt-nodejs');
+const cors = require('cors');
 
 const app = express();
+
+
 app.use(bodyParser.json());
+app.use(cors());
 
 const database = {
 	user:[
@@ -36,16 +40,22 @@ const database = {
 		]
 }
 
+
+
+
 app.get('/', (req, res)=>{
 	res.send(database.user);
 })
 
 app.post('/signin',(req,res)=>{
 
+
 	if(req.body.email === database.user[0].email &&
 		req.body.password === database.user[0].password){
 
-		res.json('The user is added');
+		
+
+		res.json('Success to login');
 	}else{
 		res.status(400).json('Error for login');
 	}
@@ -130,8 +140,8 @@ app.put('/image',(req,res) =>{
 //     // res = false
 // });
 
-app.listen(3000, () =>{
-	console.log('app is running on port 3,000');
+app.listen(3001, () =>{
+	console.log('app is running on port 3,001');
 });
 
 // res = this is working.

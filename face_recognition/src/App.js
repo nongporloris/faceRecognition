@@ -47,6 +47,7 @@ class App extends React.Component{
 
   }
 
+  
     
 calculateFaceLocation =(data) =>{
 
@@ -227,6 +228,7 @@ onRouteChange =(route) =>{
       
 
         <Particles className='parti' style={{zIndex:'-1'}}/>
+       
 
       </div>
 
