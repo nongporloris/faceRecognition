@@ -21,7 +21,7 @@ class Signin extends React.Component{
 
 	onSubmitSignIn =() =>{
 
-		//console.log(this.state);
+		// console.log(this.state);
 		fetch('http://localhost:3001/signin', {
 			method : 'post',
 			headers : {'Content-Type' : 'application/json'},
@@ -33,17 +33,20 @@ class Signin extends React.Component{
 		.then(response => response.json())
 		.then(data =>{
 
-			if(data === "Success to login"){
-				 this.props.onRouteChange('home');
+			if(data.id){
+				//console.log();
+				this.props.loadUser(data);
+				this.props.onRouteChange('home');
 			}
 		})
+
 		  // this.props.onRouteChange('home');
 	}
 
 
 	render(){
 
-		const {onRouteChange} = this.props;
+		const {loadUser,onRouteChange} = this.props;
 
 		return(
 
@@ -53,7 +56,7 @@ class Signin extends React.Component{
 
 			<article className="mw6 center bg-white br3 pa3 pa1-ns mv3 ba b--black-10" style={{padding:'30px'}} >
 				<main className="pa4 black-80">
-				  <form className="measure ">
+				  <div className="measure ">
 				    <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
 				      <legend className="f2 fw6 ph0 mh0">Sign In</legend>
 				      <div className="mt3">
@@ -70,12 +73,12 @@ class Signin extends React.Component{
 				      <input className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Sign in" 
 				      	onClick={this.onSubmitSignIn}/>
 				    </div>
-				    <div className="lh-copy mt3">
+				    <div className="lh-copy mt3" style={{display:'flex', justifyContent:'center'}}>
 				      <a onClick={()=>onRouteChange('register')} href="#0" className="f6 link dim black db pointer">Sign up</a>
 				      {/*<a href="#0" className="f6 link dim black db">Forgot your password?</a>
 				   		*/}
 				    </div>
-				  </form>
+				  </div>
 				</main>
 			</article>
 

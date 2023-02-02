@@ -41,12 +41,39 @@ class App extends React.Component{
       input:'',
       imageURL: '',
       box: {},
-      route: 'signin'
+      route: 'signin',
+
+
+///////Update user profile who use the web now////////
+      user :{
+
+        id:'',
+        name:'',
+        email:'',
+        entries:0,
+        joined:'',
+
+      }
 
     }
 
   }
 
+loadUser = (user)=>{
+  this.setState({
+
+    user :{
+
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      entries: user.entries,
+      joined: user.joined,
+
+    }
+  });
+
+}
   
     
 calculateFaceLocation =(data) =>{
@@ -137,7 +164,21 @@ onButtonSubmit = ()=>{
         .then(response => response.json()) //text())
         .then(result => {
           //console.log(result)
-          
+          if(result){
+            fetch('http://localhost:3001/image',{
+
+                method : 'put',
+                headers : {'Content-Type' : 'application/json'},
+                body : JSON.stringify({
+                  id: this.state.user.id
+              })
+            })
+            .then(response => response.json())
+            .then(count=> {
+              this.setState(Object.assign(this.state.user, {entries : count}))
+            })
+          }
+
           return this.displayFaceBox(this.calculateFaceLocation(result));
         })
       //  .then(result => this.calculateFaceLocation(result))
@@ -208,7 +249,7 @@ onRouteChange =(route) =>{
 
               <Logo/>
 
-              <Rank/>
+              <Rank name={this.state.user.name} entries={this.state.user.entries} />
 
               <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit= {this.onButtonSubmit}/>
 
@@ -220,8 +261,8 @@ onRouteChange =(route) =>{
 
           : (this.state.route === 'signin'
 
-              ?<Signin onRouteChange={this.onRouteChange}/>
-              :<Register onRouteChange={this.onRouteChange}/>
+              ?<Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+              :<Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
             )
       }
        

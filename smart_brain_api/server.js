@@ -5,16 +5,17 @@ const cors = require('cors');
 
 const app = express();
 
-
 app.use(bodyParser.json());
 app.use(cors());
+
+
 
 const database = {
 	user:[
 		{	id:'123',
 			name: 'John',
 			email: 'john@gmail.com',
-			password : 'john_13579',
+			password : '13579',
 			entries : '0',
 			joined :new Date,
 
@@ -53,9 +54,9 @@ app.post('/signin',(req,res)=>{
 	if(req.body.email === database.user[0].email &&
 		req.body.password === database.user[0].password){
 
-		
+		res.json(database.user[0]);
 
-		res.json('Success to login');
+		//res.json('Success');
 	}else{
 		res.status(400).json('Error for login');
 	}
@@ -78,7 +79,7 @@ app.post('/register',(req,res) => {
 		id:'125',
 		name: name,
 		email: email,
-		password : password,
+	//	password : password,	remove because it shouldn't return to user in network
 		entries : '0',
 		joined :new Date,
 	})
