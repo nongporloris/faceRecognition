@@ -224,6 +224,10 @@ app.models
 } //this.onButtonSubmit
 
 
+
+//If we have parameter like this
+//In the return in other components like onClick({ ()=> onRouteChange('route') })
+//**********************************************************************************
 onRouteChange =(route) =>{
 
   this.setState({route: route});

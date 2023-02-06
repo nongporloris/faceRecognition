@@ -30,13 +30,17 @@ class Signin extends React.Component{
 				password: this.state.signInPassword
 			})
 		})
-		.then(response => response.json())
+		.then(response => response.json())// This is not ruturn a json object but return a resolve of promise as a json input and 
+		//parsing it to produce a js object
 		.then(data =>{
 
 			if(data.id){
 				//console.log();
 				this.props.loadUser(data);
 				this.props.onRouteChange('home');
+			}
+			else{
+				alert(data);
 			}
 		})
 

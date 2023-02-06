@@ -2,6 +2,10 @@ import React from 'react';
 
 class Register extends React.Component{
 
+//Send props form the App component
+//Remember to use this.props
+//*** Especially when props are used in the return function ******//
+
 	constructor(props){
 		super(props)
 		this.state = {
@@ -12,6 +16,7 @@ class Register extends React.Component{
 		}
 	}
 
+//Remember the "event" when input thing is change like onChange() in the input reciever
 	onNameChange = (event) =>{
 		this.setState({regisName: event.target.value})
 	}
@@ -39,11 +44,16 @@ class Register extends React.Component{
 		.then(response => response.json())
 		.then(user =>{
 
-			if(user){
+			if(user === 'Unable to register'){
+				//this.props.onRouteChange('register');
+				alert('Email has been used');
+			}
+			else if(user){
 				//console.log();
 				this.props.loadUser(user);
 				this.props.onRouteChange('home');
 			}
+
 		})
 
 		  // this.props.onRouteChange('home');
@@ -51,6 +61,10 @@ class Register extends React.Component{
 
 
 	render(){
+
+//*** Remember this***//
+//If the component is extends class
+//we need to deconstructure the props like this below
 
 		const {loadUser,onRouteChange} = this.props
 
