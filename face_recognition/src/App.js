@@ -10,34 +10,7 @@ import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import Signin from './components/Signin/Signin';
 import Register from './components/Register/Register';
 
-
-/*
-const USER_ID = 'nongporloris';
-    // Your PAT (Personal Access Token) can be found in the portal under Authentification
-    const PAT = '40e71eb0255b4e1b8d27baf7d27ca0ec';
-    const APP_ID = 'my-first-application';
-    // Change these to whatever model and image URL you want to use
-    const MODEL_ID = 'face-detection';
-    const MODEL_VERSION_ID = 'aa7f35c01e0642fda5cf400f543e7c40';    
-    const IMAGE_URL = 'https://img.freepik.com/free-photo/beautiful-model-girl-with-perfect-fresh-clean-skin-youth-skin-care-concept-isolated-pastel-brown-background_658552-32.jpg?w=1380&t=st=1674560693~exp=1674561293~hmac=539a8a2b9d9d399f67e072c27c10ecce8c09c188cb4fa0b7d9589fbd5a3c540f';
-
-*/
-
-
-/*
-const app = new Clarifai.App({
- apiKey: '40e71eb0255b4e1b8d27baf7d27ca0ec'
-});
-*/
-
-
-class App extends React.Component{
-
-  constructor(){
-    super();
-
-    this.state={
-
+const initialState = {
       input:'',
       imageURL: '',
       box: {},
@@ -54,8 +27,18 @@ class App extends React.Component{
         joined:'',
 
       }
+}
 
-    }
+class App extends React.Component{
+
+  constructor(){
+    super();
+
+    this.state = initialState;
+
+     
+
+    
 
   }
 
@@ -229,8 +212,14 @@ app.models
 //In the return in other components like onClick({ ()=> onRouteChange('route') })
 //**********************************************************************************
 onRouteChange =(route) =>{
+  
+if( route === 'signin'){
+    this.setState(initialState);
+  }
 
-  this.setState({route: route});
+  
+
+  
 
 
 }

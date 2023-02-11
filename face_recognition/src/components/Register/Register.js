@@ -44,7 +44,11 @@ class Register extends React.Component{
 		.then(response => response.json())
 		.then(user =>{
 
-			if(user === 'Unable to register'){
+			if(user === 'requirement error'){
+
+				alert('Please input all requirements');
+			}
+			else if(user === 'Unable to register'){
 				//this.props.onRouteChange('register');
 				alert('Email has been used');
 			}
@@ -55,6 +59,8 @@ class Register extends React.Component{
 			}
 
 		})
+
+
 
 		  // this.props.onRouteChange('home');
 	}

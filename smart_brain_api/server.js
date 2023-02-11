@@ -13,6 +13,11 @@ const bodyParser = require('body-parser');	// read the json format form the body
 const bcrypt = require('bcrypt-nodejs');
 const cors = require('cors');
 
+const Signin = require('./controllers/Signin');
+const Register = require('./controllers/Register');
+const ProfileID = require('./controllers/ProfileID');
+const Image= require('./controllers/Image');
+
 const knex = require('knex')({
   client: 'pg',
   connection: {
@@ -77,61 +82,10 @@ app.get('/', (req, res)=>{
 	res.send('connect to smart-brain db');
 })
 
-app.post('/signin',(req,res)=>{
 
-	const {email, password} = req.body;
+app.post('/signin',(req,res)=>{Signin.handleSignin(req,res,bcrypt,knex)});
 
-	knex.select('email','hash').from('login')
-	.where({email : email})
-	.then(data => {
-		const isValid = bcrypt.compareSync(password, data[0].hash)
-		if(isValid){
-			knex.select('*').from('users').where({
-				email : email
-			})
-			.then(user => res.json(user[0]))
-			.catch(error => res.status(400).json('Error to connect the user'))
-		}else{
-			res.status(400).json('Wrong password');
-		}
-	})
-	.catch(error => res.status(400).json('No user match'))
-
-});
-
-app.post('/register',(req,res) => {
-	
-	const {email, name, password} = req.body
-	const hash = bcrypt.hashSync(password);
-
-	knex.transaction(trx=>{
-		trx.insert({
-			hash: hash,
-			email: email
-		})
-		.into('login')
-		.returning('email')
-		.then(loginEmail =>{
-
-			trx('users').returning('*').insert({
-			email: loginEmail[0].email,
-			name: name,
-			joined: new Date(),
-		})
-		.then(user=>{
-			res.json(user[0]);
-		})
-		})
-	.then(trx.commit)
-	.catch(trx.rollback)
-	})
-	.catch(err=>{
-		res.status(400).json('Unable to register');
-	})
-
-	// res.send('The user register is working');
-	
-})
+app.post('/register',(req,res) => {Register.handleRegister(req,res,knex,bcrypt)})
 
 // app.get('/test', (req,res) =>{
 
@@ -141,48 +95,11 @@ app.post('/register',(req,res) => {
 
 // 	res.json(userTemp);
 // })
-
-
-app.get('/profile/:id', (req,res) =>{
-
-	const {id} = req.params;
-	
-	knex.select('*').from('users').where({
-		id : id
-	})
-	.then(response => {
-		if(response.length === 0){
-			res.status(400).json('Error to find the user');
-		}else{
-			res.json(response[0])
-		}
-		
-	})
-	.catch(error => res.status(400).json('Error to find the user'))
-
-	// res.status(404).json('Not found the user');
-})
+app.get('/profile/:id', (req,res) =>{ProfileID.handleProfileID(req,res,knex)})
 
 
 //PUT the imageEntries to the user and increase the count++
-app.put('/image',(req,res) =>{
-
-	const {id} = req.body;
-	let entriesTemp = 0;
-	
-	knex('users').where({id:id})
-	.increment('entries', 1)
-	.returning('entries') // use to return column with delete, instert, update
-	.then(response => {
-		if(response.length === 0){
-			res.status(400).json('Sorry, we have some problem');
-			
-		}else{
-			res.json(response[0].entries)
-		}
-	})
-	.catch(error=> res.status(400).json('Sorry, we have some problem'))
-})
+app.put('/image',(req,res) =>{Image.handleImage(req,res,knex)})
 
 // bcrypt.hash("bacon", null, null, function(err, hash) {
 //     // Store hash in your password DB.
