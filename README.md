@@ -9,6 +9,7 @@ Final project of ZTM course called Face Recognition with React and Node js. This
 
 ## How to run
 - Note: you need to install NodeJS and PostgreSQL before run the commands.
+- 
     https://nodejs.org/en/download/
     
     https://www.postgresql.org/download/
