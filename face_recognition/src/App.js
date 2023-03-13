@@ -216,11 +216,9 @@ onRouteChange =(route) =>{
 if( route === 'signin'){
     this.setState(initialState);
   }
-
-  
-
-  
-
+  else{
+    this.setState({route: route})
+  }
 
 }
 
