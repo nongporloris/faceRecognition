@@ -26,5 +26,6 @@ Final project of ZTM course called Face Recognition with React and Node js. This
         npm update
      
 ## Demo
-
+<div align="center">
 ![ezgif com-resize (5)](https://user-images.githubusercontent.com/80881226/224990595-0ff2c4f7-7ea1-4197-be8d-b176c1c534f5.gif)
+</div>
