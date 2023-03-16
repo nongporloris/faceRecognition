@@ -48,3 +48,6 @@ Final project of ZTM course called Face Recognition with React and Node js. This
 - Frontend Deployment (https://pcn-smartbrain.netlify.app)
     
     Smart brain frontend use Netlify platform to deploy ReactJS files. In the React JS file will connect directly to the backend website to send request and get the response with the server.
+    
+    ![image](https://user-images.githubusercontent.com/80881226/225685207-8bee857a-74e5-4b9a-8c55-b2b16d3a7b16.png)
+
