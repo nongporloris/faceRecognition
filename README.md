@@ -1,5 +1,5 @@
 # faceRecognition
-Final project of ZTM course called Face Recognition with React and Node js. This web application will detect the face form the picture which user upload by using face detection model form the clarifai api. 
+Final project of ZTM course called Face Recognition with React and Node js express. This web application will detect the face form the picture which user upload by using face detection model form the clarifai api. 
 
 ## Feature
 
